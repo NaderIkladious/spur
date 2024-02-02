@@ -1,0 +1,21 @@
+{
+    "name": "naderikladious/spur",
+    "description": "A Laravel driver for spur to on the fly get required components",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Naderikladious\\Spur\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nader Ikladious",
+            "email": "nader.ikladious@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "orchestra/testbench": "dev-develop"
+    }
+}
