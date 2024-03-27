@@ -14,7 +14,8 @@ class SpurServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->commands([
-            Commands\SpurFetch::class
+            Commands\SpurFetch::class,
+            Commands\SpurAdd::class
         ]);
     }
 
