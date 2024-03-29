@@ -32,12 +32,13 @@ class Spur
         $directoryPath = resource_path("views/components/{$componentPath}");
         $filePath = resource_path("views/components/{$name}.blade.php");
         if (!File::exists($filePath) || $force) {
-            $cdnUrl = 'http://spur-server.test/';
+            $url = env('SPUR_SERVER_URL', 'http://spur-server.test');
+            $filename = $name.'.blade.php';
             File::makeDirectory($directoryPath, 0755, true, true);
 
-            $template = Http::get($cdnUrl.$name.'.blade.php');
-            if ($template->successful()) {
-                file_put_contents($filePath, $template->body());
+            $templateRequest = Http::post($url . '/api/get-component', ['name' => $filename]);
+            if ($templateRequest->successful()) {
+                file_put_contents($filePath, $templateRequest->body());
                 return true;
             }
         }
