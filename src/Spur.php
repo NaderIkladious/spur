@@ -33,11 +33,14 @@ class Spur
         $filePath = resource_path("views/components/{$name}.blade.php");
         if (!File::exists($filePath) || $force) {
             $url = env('SPUR_SERVER_URL', 'http://spur-server.test');
+            $path = '/api/get-component';
             $filename = $name.'.blade.php';
+            $token = config('spur.token');
             File::makeDirectory($directoryPath, 0755, true, true);
 
-            $templateRequest = Http::post($url . '/api/get-component', ['name' => $filename]);
-            if ($templateRequest->successful()) {
+
+            $templateRequest = Http::withToken($token)->post($url . $path, ['name' => $filename]);
+            if ($templateRequest->successful() && $templateRequest->effectiveUri()->getPath() === $path) {
                 file_put_contents($filePath, $templateRequest->body());
                 return true;
             }

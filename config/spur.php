@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'token' => env('SPUR_TOKEN', ''),
+    'token' => env('SPUR_PROJECT_TOKEN', ''),
     'components' => [
 
     ]
