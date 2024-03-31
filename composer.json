@@ -19,7 +19,6 @@
             "email": "nader.ikladious@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
     "extra": {
         "laravel": {
             "providers": [
