@@ -1,10 +1,10 @@
 <?php
 
-namespace Naderikladious\Spur\Providers;
+namespace Spur\Spur\Providers;
 
 
 use Illuminate\Support\ServiceProvider;
-use Naderikladious\Spur\Console\Commands;
+use Spur\Spur\Console\Commands;
 
 class SpurServiceProvider extends ServiceProvider
 {

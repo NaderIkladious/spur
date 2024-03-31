@@ -1,11 +1,9 @@
 <?php
 
-namespace Naderikladious\Spur\Console\Commands;
+namespace Spur\Spur\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Http;
-use Naderikladious\Spur\Spur;
+use Spur\Spur\Spur;
 
 class SpurAdd extends Command
 {

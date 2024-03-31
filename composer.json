@@ -1,17 +1,17 @@
 {
-    "name": "naderikladious/spur",
+    "name": "spur/spur",
     "description": "A Laravel driver for spur to on the fly get required components",
     "type": "library",
     "version": "0.0.1",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Naderikladious\\Spur\\": "src/"
+            "Spur\\Spur\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Naderikladious\\Spur\\Tests\\": "tests/"
+            "Spur\\Spur\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -27,7 +27,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Naderikladious\\Spur\\Providers\\SpurServiceProvider"
+                "Spur\\Spur\\Providers\\SpurServiceProvider"
             ]
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Naderikladious\Spur;
+namespace Spur\Spur;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 

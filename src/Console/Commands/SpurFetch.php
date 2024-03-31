@@ -1,9 +1,9 @@
 <?php
 
-namespace Naderikladious\Spur\Console\Commands;
+namespace Spur\Spur\Console\Commands;
 
 use Illuminate\Console\Command;
-use Naderikladious\Spur\Spur;
+use Spur\Spur\Spur;
 
 class SpurFetch extends Command
 {
