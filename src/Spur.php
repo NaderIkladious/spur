@@ -25,16 +25,14 @@ class Spur
 
     public static function downloadComponent(string $component, bool $force)
     {
-        list($name) = explode(',', trim($component, '()\''));
-        $componentFilePath = explode('/', $name);
-        array_pop($componentFilePath);
-        $componentPath = implode('/', $componentFilePath);
-        $directoryPath = resource_path("views/components/{$componentPath}");
-        $filePath = resource_path("views/components/{$name}.blade.php");
+        $componentParts = explode('/', $component);
+        $componentFileName = end($componentParts);
+        $directoryPath = resource_path("views/components/spur");
+        $filePath = resource_path("views/components/spur/{$componentFileName}.blade.php");
         if (!File::exists($filePath) || $force) {
-            $url = env('SPUR_SERVER_URL', 'http://spur-server.test');
+            $url = env('SPUR_SERVER_URL', 'https://app.spurui.dev');
             $path = '/api/get-component';
-            $filename = $name.'.blade.php';
+            $filename = $component.'.blade.php';
             $token = config('spur.token');
             File::makeDirectory($directoryPath, 0755, true, true);
 
