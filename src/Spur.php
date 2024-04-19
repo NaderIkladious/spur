@@ -10,7 +10,7 @@ class Spur
         return is_null(config('spur'));
     }
     public static function components() {
-        return config('spur.components');
+        return !is_null(config('spur.components'));
     }
     public static function addComponentsToConfig(string $componentName) {
         $configFilePath = config_path('spur.php');
