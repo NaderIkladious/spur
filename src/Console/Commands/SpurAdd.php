@@ -34,7 +34,7 @@ class SpurAdd extends Command
         }
 
         // Check if the 'components' key exists in the configuration
-        if (!Spur::components()) {
+        if (is_null(Spur::components())) {
             $this->error("'components' key is not existing in `config/Spur.php`");
             return;
         }
@@ -45,12 +45,12 @@ class SpurAdd extends Command
                 $this->line('- '. $component .' '. '<error>Already added</error>');
                 continue;
             }
-            if (!Spur::isComponentAlreadyAdded($component)) {
-                Spur::addComponentsToConfig($component);
-            }
             $result = Spur::downloadComponent($component, $this->option('force'));
             if ($result) {
                 $this->line('- '. $component .' '. '<info>Fetched</info>');
+                if (!Spur::isComponentAlreadyAdded($component)) {
+                    Spur::addComponentsToConfig($component);
+                }
             } else {
                 $this->line('- '. $component .' '. '<error>Skipped</error>');
             }

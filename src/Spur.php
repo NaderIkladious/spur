@@ -10,7 +10,7 @@ class Spur
         return is_null(config('spur'));
     }
     public static function components() {
-        return !is_null(config('spur.components'));
+        return config('spur.components');
     }
     public static function addComponentsToConfig(string $componentName) {
         $configFilePath = config_path('spur.php');
@@ -35,7 +35,6 @@ class Spur
             $filename = $component.'.blade.php';
             $token = config('spur.token');
             File::makeDirectory($directoryPath, 0755, true, true);
-
 
             $templateRequest = Http::withToken($token)->post($url . $path, ['name' => $filename, 'config' => config('spur.config')]);
             if ($templateRequest->successful() && $templateRequest->effectiveUri()->getPath() === $path) {
