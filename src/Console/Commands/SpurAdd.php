@@ -12,7 +12,7 @@ class SpurAdd extends Command
      *
      * @var string
      */
-    protected $signature = 'spur:add {components*}';
+    protected $signature = 'spur:add {components*} {--force}';
 
     /**
      * The console command description.
@@ -41,12 +41,14 @@ class SpurAdd extends Command
 
         $this->info('Adding components');
         foreach ($this->argument('components') as $component) {
-            if (Spur::isComponentAlreadyAdded($component)) {
+            if (Spur::isComponentAlreadyAdded($component) && !$this->option('force')) {
                 $this->line('- '. $component .' '. '<error>Already added</error>');
                 continue;
             }
-            Spur::addComponentsToConfig($component);
-            $result = Spur::downloadComponent($component, false);
+            if (!Spur::isComponentAlreadyAdded($component)) {
+                Spur::addComponentsToConfig($component);
+            }
+            $result = Spur::downloadComponent($component, $this->option('force'));
             if ($result) {
                 $this->line('- '. $component .' '. '<info>Fetched</info>');
             } else {
