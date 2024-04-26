@@ -15,9 +15,13 @@ class Spur
     public static function addComponentsToConfig(string $componentName) {
         $configFilePath = config_path('spur.php');
         $content = File::get($configFilePath);
-
-        $pattern = "/(\s*)('components' => \[)(?<!\n)(.*?)(\h*)]/s";
-        $replacement = "$1'components' => [$3$4$4'$componentName',$1]";
+        if (Spur::isComponentIcon($componentName)) {
+            $pattern = "/(\s*)('icons' => \[)(?<!\n)(.*?)(\h*)]/s";
+            $replacement = "$1'icons' => [$3$4$4'". Spur::componentFileName($componentName)."',$1]";
+        } else {
+            $pattern = "/(\s*)('components' => \[)(?<!\n)(.*?)(\h*)]/s";
+            $replacement = "$1'components' => [$3$4$4'$componentName',$1]";
+        }
         $newContent = preg_replace($pattern, $replacement, $content);
 
         File::put($configFilePath, $newContent);
@@ -25,10 +29,10 @@ class Spur
 
     public static function downloadComponent(string $component, bool $force)
     {
-        $componentParts = explode('/', $component);
-        $componentFileName = end($componentParts);
-        $directoryPath = resource_path("views/components/spur");
-        $filePath = resource_path("views/components/spur/{$componentFileName}.blade.php");
+        $componentFileName = Spur::componentFileName($component);
+        $directoryName = Spur::componentDestinationDirectory($component);
+        $directoryPath = resource_path("views/components/{$directoryName}");
+        $filePath = resource_path("views/components/{$directoryName}/{$componentFileName}.blade.php");
         if (!File::exists($filePath) || $force) {
             $url = env('SPUR_SERVER_URL', 'https://app.spurui.dev');
             $path = '/api/get-component';
@@ -44,7 +48,24 @@ class Spur
         }
         return false;
     }
-    public static function isComponentAlreadyAdded(string $component) {
+    public static function isComponentAlreadyAdded(string $component)
+    {
         return in_array($component, config('spur.components'));
+    }
+
+    public static function isComponentIcon(string $component)
+    {
+        return explode('/', $component)[0] === 'icons';
+    }
+
+    public static function componentFileName(string $component)
+    {
+        $componentParts = explode('/', $component);
+        return end($componentParts);
+    }
+
+    public static function componentDestinationDirectory(string $component)
+    {
+        return Spur::isComponentIcon($component) ? 'spur/icons' : 'spur';
     }
 }
