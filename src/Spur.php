@@ -40,7 +40,11 @@ class Spur
             $token = config('spur.token');
             File::makeDirectory($directoryPath, 0755, true, true);
 
-            $templateRequest = Http::withToken($token)->post($url . $path, ['name' => $filename, 'config' => config('spur.config')]);
+            $templateRequest = Http::withToken($token)->post($url . $path, [
+                'name' => $filename,
+                'config' => config('spur.config'),
+                'version' => config('spur.version'),
+            ]);
             if ($templateRequest->successful() && $templateRequest->effectiveUri()->getPath() === $path) {
                 file_put_contents($filePath, $templateRequest->body());
                 return true;
