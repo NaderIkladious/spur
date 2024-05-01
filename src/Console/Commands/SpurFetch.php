@@ -29,25 +29,27 @@ class SpurFetch extends Command
         // Check if the configuration file exists
         if (Spur::configIsNotPublished()) {
             $this->warn('Configuration file not found. Please run \'php artisan vendor:publish --tag=spur-config\'');
+
             return;
         }
 
         // Check if the 'components' key exists in the configuration
-        if (!Spur::components()) {
+        if (! Spur::components()) {
             $this->error('No components found in the configuration file.');
+
             return;
         }
 
         // Display the list of components
-        $this->info('Updating components...' );
+        $this->info('Updating components...');
         foreach (Spur::components() as $component) {
             $result = Spur::downloadComponent($component, $this->option('force'));
             if ($result) {
-                $this->line('- '. $component .' '. '<info>Fetched</info>');
+                $this->line('- '.$component.' '.'<info>Fetched</info>');
             } else {
-                $this->line('- '. $component .' '. '<error>Skipped</error>');
+                $this->line('- '.$component.' '.'<error>Skipped</error>');
             }
         }
-        $this->info('Components completed' );
+        $this->info('Components completed');
     }
 }

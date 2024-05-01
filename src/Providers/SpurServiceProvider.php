@@ -2,7 +2,6 @@
 
 namespace Spur\Spur\Providers;
 
-
 use Illuminate\Support\ServiceProvider;
 use Spur\Spur\Console\Commands;
 
@@ -15,14 +14,13 @@ class SpurServiceProvider extends ServiceProvider
     {
         $this->commands([
             Commands\SpurFetch::class,
-            Commands\SpurAdd::class
+            Commands\SpurAdd::class,
         ]);
     }
 
     /**
      * Bootstrap services.
      */
-
     public function boot()
     {
         $this->publishes([
